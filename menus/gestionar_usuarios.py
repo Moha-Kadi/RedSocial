@@ -28,8 +28,9 @@ def actualizar_correo(id,correo): # ACTUALIZAMOS CORREO DE USUARIO #
     correo_actualizado = base_datos.ejecutar_consulta(settings.ACTUALIZAR_CORREO, [correo, id])
     return [UsuarioDB(*usr) for usr in correo_actualizado]
 
-def eliminar_usuario(): # ELIMINAMOS USUARIO DE LA BASE DE DATOS #
-    pass 
+def eliminar_usuario(id): # ELIMINAMOS USUARIO DE LA BASE DE DATOS #
+    borrar_usuario = base_datos.ejecutar_consulta(settings.ELIMINAR_USUARIO, id)
+    return [UsuarioDB(*usr) for usr in borrar_usuario]
 
 def gestion_usuarios():
     
@@ -57,6 +58,7 @@ def gestion_usuarios():
             case "0":
                 base_datos.commit()
                 break
+
             case "1":
                 print("\n*** REGISTRAR NUEVO CLIENTE ***\n")
                 
@@ -74,20 +76,26 @@ def gestion_usuarios():
                     print(usuario)
                     # print(f" - ID: {usuario[0]}\n - Nombre: {usuario[1]}\n - Apellido: {usuario[2]}\n - Correo: {usuario[3]}\n - Fecha Registro {usuario[4]}")
                     print()
+
             case "3":
                 print("\n*** BUSCAR USUARIO ***\n")
                 correo = input("Introduzca un correo: ")
                 for usuario in buscar_usuario(correo):
                     print(f"\n{usuario}\n")
+
             case "4":
                 print("\n*** ACTUALIZAR CORREO ***\n")
                 id = input("Introduzca ID del usuario: ")
                 nuevo_correo = input("Introduzca nuevo correo: ")
                 actualizar_correo(id,nuevo_correo)
                 print()
+
             case "5":
                 print("\n*** ELIMINAR USUARIO ***\n")
-                eliminar_usuario()
+                id = input("Introduzca ID del usuario: ")
+                eliminar_usuario(id)
+                print()
+
             case _:
                 print("\nERROR. Elija una opción válida\n")
 

@@ -1,6 +1,10 @@
 ### LIBRERÍAS ###
 import os
 from database import base_datos
+import settings
+import datetime
+from clases.usuario import UsuarioDB
+from clases.publicacion import PublicacionDB
 
 ### FUNCIONES ###
 def limpiar_terminal():
@@ -10,19 +14,26 @@ def pausar_terminal():
     input("« Pulse Enter para continuar... »")
 
 def registro_ultimo_mes(): # CONSULTA DE TODOS LOS USUARIOS REGISTRADOS EL ÚLTIMO MES #
-    pass 
+    fecha_actual = datetime.datetime.today()
+    fecha_mes_atras = fecha_actual-datetime.timedelta(days=30)
+    consulta_mes = base_datos.ejecutar_consulta(settings.CONSULTA_REGISTRO_UTL_MES, [fecha_mes_atras, fecha_actual])
+    return [UsuarioDB(*con) for con in consulta_mes]
 
 def cantidad_total_publicaciones(): # CANTIDAD TOTAL DE PUBLICACIONES POR USUARIO #
-    pass 
+    publi_usuarios = base_datos.ejecutar_consulta(settings.NUMERO_DE_PUBLICACIONES_POR_USUARIO)
+    return [PublicacionDB(*publi) for publi in publi_usuarios] 
+
 
 def num_publicaciones_usuario(): # USUARIOS CON MÁS DE 3 PUBLICACIONES #
-    pass 
+    pass
 
 def publicaciones_antiguas(): # PUBLICACIONES MÁS ANTIGUAS #
-    pass 
+    publicaciones_antiguas = base_datos.ejecutar_consulta(settings.CONSULTA_PUBLICACIONES_MAS_ANTIGUAS)
+    return [PublicacionDB(*con) for con in publicaciones_antiguas] 
 
-def publicaciones_palabra_clave(): # BUSCAR PUBLICACIONES POR PALABRA CLAVE #
-    pass 
+def publicaciones_palabra_clave(palabra): # BUSCAR PUBLICACIONES POR PALABRA CLAVE #
+    palabra_clave = base_datos.ejecutar_consulta(settings.CONSULTA_PALABRA_CLAVE, [palabra])
+    return [PublicacionDB(*usr) for usr in palabra_clave]
 
 def gestion_consultas():
     
@@ -51,19 +62,24 @@ def gestion_consultas():
                 break
             case "1":
                 print("\n*** USUARIOS REGISTRADOS EN EL ÚLTIMO MES ***\n")
-                registro_ultimo_mes()
+                for usuario in registro_ultimo_mes():
+                    print(f"{usuario}\n")
             case "2":
                 print("\n*** TOTAL PUBLICACIONES POR USUARIO ***\n")
-                cantidad_total_publicaciones()
+                for pub_usuario in cantidad_total_publicaciones():
+                    print(f"{pub_usuario}\n")
             case "3":
                 print("\n*** USUARIOS CON +3 PUBLICACIONES ***\n")
                 num_publicaciones_usuario()
             case "4":
                 print("\n*** PUBLICACIONES MAS ANTIGUAS ***\n")
-                publicaciones_antiguas()
+                for publi in publicaciones_antiguas():
+                    print(f"{publi}\n")
             case "5":
                 print("\n*** FILTRAR PUBLICACIONES POR PALABRA CLAVE ***\n")
-                publicaciones_palabra_clave()
+                palabra_clave = input("Introduzca palabra clave: ")
+                for palabra in publicaciones_palabra_clave(palabra=palabra_clave):
+                    print(f"\n{palabra}\n")
             case _:
                 print("\nERROR. Elija una opción válida\n")
 
