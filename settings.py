@@ -1,7 +1,7 @@
 ### LIBRERÍAS ###
 import os
 from dotenv import load_dotenv
-import sqlite3 as base_datos
+import sqlite3 as sq
 
 ### CARGAMOSS LAS VARIABLE DE ENTORNO DEL ARCHIVO .ENV ###
 load_dotenv()
@@ -52,17 +52,17 @@ Insert_DatosIniciales_Publicaciones = [
 
 
 ### INSERTAMOS DATOS INICIALES A LA BASE DE DATOS ###
-if __name__ == "__main__":
-    with base_datos.connect(DB) as conexion:
-        cursor = conexion.cursor()
-        try:
-            cursor.executescript(CREATE_TABLES_SQL)
+# if __name__ == "__main__":
+#     with base_datos.connect(DB) as conexion:
+#         cursor = conexion.cursor()
+#         try:
+#             cursor.executescript(CREATE_TABLES_SQL)
           
-            cursor.executemany(INSERT_USUARIOS_SQL, Insert_DatosIniciales_Usuarios)
-            cursor.executemany(INSERT_PUBLICACIONES_SQL, Insert_DatosIniciales_Publicaciones)
+#             cursor.executemany(INSERT_USUARIOS_SQL, Insert_DatosIniciales_Usuarios)
+#             cursor.executemany(INSERT_PUBLICACIONES_SQL, Insert_DatosIniciales_Publicaciones)
             
-        finally:
-            cursor.close()
+#         finally:
+#             cursor.close()
 
 
 ### AÑADIR USUARIO ###

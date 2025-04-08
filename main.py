@@ -1,6 +1,8 @@
 ### LIBRERÍAS ###
 import os
 from database import base_datos
+import settings
+import sqlite3 as sq
 
 ### MEŃUS ###
 from menus import gestionar_usuarios
@@ -53,4 +55,18 @@ def menu():
 
 
 ### COMIENZA EL PROGRAMA ###
-menu()
+
+if __name__ == "__main__":
+    with sq.connect(settings.DB) as conexion:
+        cursor = conexion.cursor()
+        try:
+            cursor.executescript(settings.CREATE_TABLES_SQL)
+          
+            cursor.executemany(settings.INSERT_USUARIOS_SQL, settings.Insert_DatosIniciales_Usuarios)
+            cursor.executemany(settings.INSERT_PUBLICACIONES_SQL, settings.Insert_DatosIniciales_Publicaciones)
+            
+        except Exception as ex:
+            print(f"ERROR {ex}")
+            conexion.rollback()
+        
+    menu()
