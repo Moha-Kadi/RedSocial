@@ -21,18 +21,18 @@ def registro_ultimo_mes(): # CONSULTA DE TODOS LOS USUARIOS REGISTRADOS EL ÚLTI
 
 def cantidad_total_publicaciones(): # CANTIDAD TOTAL DE PUBLICACIONES POR USUARIO #
     publi_usuarios = base_datos.ejecutar_consulta(settings.NUMERO_DE_PUBLICACIONES_POR_USUARIO)
-    return [PublicacionDB(*publi) for publi in publi_usuarios] 
-
+    return publi_usuarios
 
 def num_publicaciones_usuario(): # USUARIOS CON MÁS DE 3 PUBLICACIONES #
-    pass
+    usuario3_publicaciones = base_datos.ejecutar_consulta(settings.USUARIOS_MAS_3_PUBLICACIONES)
+    return usuario3_publicaciones
 
 def publicaciones_antiguas(): # PUBLICACIONES MÁS ANTIGUAS #
     publicaciones_antiguas = base_datos.ejecutar_consulta(settings.CONSULTA_PUBLICACIONES_MAS_ANTIGUAS)
     return [PublicacionDB(*con) for con in publicaciones_antiguas] 
 
 def publicaciones_palabra_clave(palabra): # BUSCAR PUBLICACIONES POR PALABRA CLAVE #
-    palabra_clave = base_datos.ejecutar_consulta(settings.CONSULTA_PALABRA_CLAVE, [palabra])
+    palabra_clave = base_datos.ejecutar_consulta(settings.CONSULTA_PALABRA_CLAVE, ["%"+palabra+"%"])
     return [PublicacionDB(*usr) for usr in palabra_clave]
 
 def gestion_consultas():
@@ -67,10 +67,11 @@ def gestion_consultas():
             case "2":
                 print("\n*** TOTAL PUBLICACIONES POR USUARIO ***\n")
                 for pub_usuario in cantidad_total_publicaciones():
-                    print(f"{pub_usuario}\n")
+                    print(f" - Usuario: {pub_usuario[0]}\n - Nº Publicaciones: {pub_usuario[1]}\n")
             case "3":
                 print("\n*** USUARIOS CON +3 PUBLICACIONES ***\n")
-                num_publicaciones_usuario()
+                for usuario3 in num_publicaciones_usuario():
+                    print(f"\n - Usuario: {usuario3[0]}\n - Total de: {usuario3[1]} publicaciones\n")
             case "4":
                 print("\n*** PUBLICACIONES MAS ANTIGUAS ***\n")
                 for publi in publicaciones_antiguas():

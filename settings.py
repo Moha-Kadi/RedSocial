@@ -103,6 +103,13 @@ NUMERO_DE_PUBLICACIONES_POR_USUARIO = """
     ORDER BY num_publicaciones DESC
 """ 
 #   USUARIOS CON MÁS DE 3 PUBLICACIONES
+USUARIOS_MAS_3_PUBLICACIONES = """
+    SELECT u.nombre, COUNT(p.id) as num_publicaciones
+    FROM usuarios u
+    LEFT JOIN publicaciones p ON u.id = p.id_usuario
+    GROUP BY u.id
+    HAVING num_publicaciones > 3
+"""
 
 #   PUBLICACIONES MÁS ANTIGUAS
 CONSULTA_PUBLICACIONES_MAS_ANTIGUAS = """
@@ -114,4 +121,4 @@ CONSULTA_PUBLICACIONES_MAS_ANTIGUAS = """
 CONSULTA_PALABRA_CLAVE = """
     SELECT * FROM publicaciones
         WHERE contenido LIKE ?;
-    """
+"""

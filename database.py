@@ -9,7 +9,8 @@ class BaseDatos:
 
     def ejecutar_consulta(self, consulta, variables=[]):
 
-        # try:
+        #try:
+        self.__cursor.execute("PRAGMA foreign_keys = ON;")
         consulta = self.__cursor.execute(consulta,variables)
         return consulta.fetchall()
         # except Exception as ex:
