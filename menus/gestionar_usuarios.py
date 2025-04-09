@@ -3,6 +3,10 @@ import os
 import settings
 from clases.usuario import Usuario, UsuarioDB
 
+#   INFO    #
+import logging
+logging.basicConfig(level=logging.INFO, format="\n%(levelname)s: %(message)s")
+
 #from clases import usuario
 from database import base_datos
 
@@ -70,13 +74,14 @@ def gestion_usuarios():
 
                 nuevo_usuario(usuario_nuevo.info())
 
+                logging.info("✅ Cliente agregado Correctamente.\n")
+
             case "2":
                 print("\n*** LISTAR USUARIOS ***\n")
                 for usuario in listar_usuarios():
-                    print(usuario)
+                    print(f"{usuario}\n")
                     # print(f" - ID: {usuario[0]}\n - Nombre: {usuario[1]}\n - Apellido: {usuario[2]}\n - Correo: {usuario[3]}\n - Fecha Registro {usuario[4]}")
-                    print()
-
+                
             case "3":
                 print("\n*** BUSCAR USUARIO ***\n")
                 correo = input("Introduzca un correo: ")
@@ -88,13 +93,15 @@ def gestion_usuarios():
                 id = input("Introduzca ID del usuario: ")
                 nuevo_correo = input("Introduzca nuevo correo: ")
                 actualizar_correo(id,nuevo_correo)
-                print()
+                
+                logging.info("✅ Correo actualizado Correctamente.\n")
 
             case "5":
                 print("\n*** ELIMINAR USUARIO ***\n")
                 id = input("Introduzca ID del usuario: ")
                 eliminar_usuario(id)
-                print()
+                
+                logging.info("✅ Cliente eliminado Correctamente.\n")
 
             case _:
                 print("\nERROR. Elija una opción válida\n")

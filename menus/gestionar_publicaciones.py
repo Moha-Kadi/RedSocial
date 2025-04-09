@@ -1,9 +1,12 @@
 ### LIBRERÍAS ###
 import os
-from clases import publicacion
 from database import base_datos
 from clases.publicacion import Publicacion, PublicacionDB
 import settings
+
+#   LOGIN   #
+import logging
+logging.basicConfig(level=logging.INFO, format="\n%(levelname)s: %(message)s")
 
 ### FUNCIONES ###
 def limpiar_terminal():
@@ -64,6 +67,8 @@ def gestion_publicaciones():
                 publicacion = Publicacion(id_usuario=id_usuario, contenido=contenido)
                 nueva_publicacion(publicacion.info())
 
+                logging.info("✅ Publicación agregada Correctamente.\n")
+
             case "2":
                 print("\n*** LISTAR PUBLICACIONES ***\n")
                 for publicacion in listar_publicaciones():
@@ -81,13 +86,15 @@ def gestion_publicaciones():
                 id_publicacion = input("Introduzca ID de la publicación: ")
                 nuevo_contenido = input("Introduzca nuevo contenido: ")
                 editar_publicacion(id_publicacion=id_publicacion, nuevo_contenido=nuevo_contenido)
-                print()
+                
+                logging.info("✅ Contenido actualizado Correctamente.\n")
 
             case "5":
                 print("\n*** ELIMINAR PUBLICACIÓN ***\n")
                 id = input("Introduzca ID de publicación: ")
                 eliminar_publicacion(id=id)
-                print()
+                
+                logging.info("✅ Publicación eliminada Correctamente.\n")
 
             case _:
                 print("\nERROR. Elija una opción válida\n")
