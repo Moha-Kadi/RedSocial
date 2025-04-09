@@ -55,8 +55,9 @@ def menu():
 
 
 ### COMIENZA EL PROGRAMA ###
-
 if __name__ == "__main__":
+
+#   PRIMERA CONEXIÓN PARA INSERTAR VALORES INICIALES
     with sq.connect(settings.DB) as conexion:
         cursor = conexion.cursor()
         try:

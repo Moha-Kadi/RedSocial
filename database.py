@@ -7,26 +7,28 @@ class BaseDatos:
         self.__conexion = sqlite3.connect(DB)
         self.__cursor = self.__conexion.cursor()
 
-    def ejecutar_consulta(self, consulta, variables=[]):
+### MÉTODOS DE LA CLASE BASEDATOS ###
 
-        #try:
-        self.__cursor.execute("PRAGMA foreign_keys = ON;")
-        consulta = self.__cursor.execute(consulta,variables)
-        return consulta.fetchall()
-        # except Exception as ex:
-        #     print(f"Se ha producido un ERROR de tipo: {type(ex)}")
-        
+#   EJECUTAR CONSULTA
+    def ejecutar_consulta(self, consulta, variables=[]):
+        try:
+            self.__cursor.execute("PRAGMA foreign_keys = ON;")
+            consulta = self.__cursor.execute(consulta,variables)
+            return consulta.fetchall()
+        except Exception as ex:
+            print(f"Se ha producido un ERROR de tipo: {type(ex)}")
+
+#   COMMIT PARA GUARDAR CAMBIOS        
     def commit(self):
         try:
             self.__conexion.commit()
         except Exception as ex:
             print(f"Se ha producido un ERROR: {ex}")
 
+#   CERRAR CONEXIÓN CON LA BASE DE DATOS
     def cerrar_conecion(self):
         self.__conexion.close()
 
-    def insertar_valores():
-        pass
 
+### INSTANCIA DE CLASE ###
 base_datos = BaseDatos()
-#base_datos.ejecutar_consulta()

@@ -17,9 +17,11 @@ class Publicacion:
     def info(self):
         return [self.get_id_usuario(), self.get_contenido()]
 
+### FUNCIÓN STR DE LA CLASE ###
     def __str__(self):
         return f" - ID_Usuario: {self.get_id_usuario()}\n - Contenido: {self.get_contenido()}"
 
+### CLASE PUBLICACION DB ###
 class PublicacionDB(Publicacion):
     def __init__(self, id_publicacion, id_usuario, contenido, fecha_publicacion):
         super().__init__(id_usuario, contenido)

@@ -17,22 +17,27 @@ def limpiar_terminal():
 def pausar_terminal():
     input("« Pulse Enter para continuar... »")
 
-def nuevo_usuario(datos): # NUEVO INSERT A LA BASE DE DATOS #
+# NUEVO INSERT A LA BASE DE DATOS #
+def nuevo_usuario(datos): 
     base_datos.ejecutar_consulta(settings.CREAR_USUARIO,[*datos])         
 
-def listar_usuarios(): # PRINT DE TODOS LOS USUARIOS DE LA BASE DE DATOS #
+# PRINT DE TODOS LOS USUARIOS DE LA BASE DE DATOS #
+def listar_usuarios(): 
     usuarios = base_datos.ejecutar_consulta(settings.MOSTRAR_USUARIOS)
     return [UsuarioDB(*usr) for usr in usuarios]
 
-def buscar_usuario(correo): # BUSCAMOS USUARIO A TRAVÉS DEL NOMBRE O CORRE #
+# BUSCAMOS USUARIO A TRAVÉS DEL NOMBRE O CORRE #
+def buscar_usuario(correo): 
     correo_usuario = base_datos.ejecutar_consulta(settings.CONSULTAR_USUARIO_CORREO, [correo])
     return [UsuarioDB(*usr) for usr in correo_usuario]
     
-def actualizar_correo(id,correo): # ACTUALIZAMOS CORREO DE USUARIO #
+# ACTUALIZAMOS CORREO DE USUARIO #
+def actualizar_correo(id,correo): 
     correo_actualizado = base_datos.ejecutar_consulta(settings.ACTUALIZAR_CORREO, [correo, id])
     return [UsuarioDB(*usr) for usr in correo_actualizado]
 
-def eliminar_usuario(id): # ELIMINAMOS USUARIO DE LA BASE DE DATOS #
+# ELIMINAMOS USUARIO DE LA BASE DE DATOS #
+def eliminar_usuario(id): 
     borrar_usuario = base_datos.ejecutar_consulta(settings.ELIMINAR_USUARIO, id)
     return [UsuarioDB(*usr) for usr in borrar_usuario]
 

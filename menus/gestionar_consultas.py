@@ -13,25 +13,30 @@ def limpiar_terminal():
 def pausar_terminal():
     input("« Pulse Enter para continuar... »")
 
-def registro_ultimo_mes(): # CONSULTA DE TODOS LOS USUARIOS REGISTRADOS EL ÚLTIMO MES #
+# CONSULTA DE TODOS LOS USUARIOS REGISTRADOS EL ÚLTIMO MES #
+def registro_ultimo_mes(): 
     fecha_actual = datetime.datetime.today()
     fecha_mes_atras = fecha_actual-datetime.timedelta(days=30)
     consulta_mes = base_datos.ejecutar_consulta(settings.CONSULTA_REGISTRO_UTL_MES, [fecha_mes_atras, fecha_actual])
     return [UsuarioDB(*con) for con in consulta_mes]
 
-def cantidad_total_publicaciones(): # CANTIDAD TOTAL DE PUBLICACIONES POR USUARIO #
+# CANTIDAD TOTAL DE PUBLICACIONES POR USUARIO #
+def cantidad_total_publicaciones(): 
     publi_usuarios = base_datos.ejecutar_consulta(settings.NUMERO_DE_PUBLICACIONES_POR_USUARIO)
     return publi_usuarios
 
-def num_publicaciones_usuario(): # USUARIOS CON MÁS DE 3 PUBLICACIONES #
+# USUARIOS CON MÁS DE 3 PUBLICACIONES #
+def num_publicaciones_usuario(): 
     usuario3_publicaciones = base_datos.ejecutar_consulta(settings.USUARIOS_MAS_3_PUBLICACIONES)
     return usuario3_publicaciones
 
-def publicaciones_antiguas(): # PUBLICACIONES MÁS ANTIGUAS #
+# PUBLICACIONES MÁS ANTIGUAS #
+def publicaciones_antiguas(): 
     publicaciones_antiguas = base_datos.ejecutar_consulta(settings.CONSULTA_PUBLICACIONES_MAS_ANTIGUAS)
     return [PublicacionDB(*con) for con in publicaciones_antiguas] 
 
-def publicaciones_palabra_clave(palabra): # BUSCAR PUBLICACIONES POR PALABRA CLAVE #
+# BUSCAR PUBLICACIONES POR PALABRA CLAVE #
+def publicaciones_palabra_clave(palabra): 
     palabra_clave = base_datos.ejecutar_consulta(settings.CONSULTA_PALABRA_CLAVE, ["%"+palabra+"%"])
     return [PublicacionDB(*usr) for usr in palabra_clave]
 

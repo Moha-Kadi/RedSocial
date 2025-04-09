@@ -26,10 +26,12 @@ class Usuario:
     def info(self):
         return [self.get_nombre(), self.get_apellido(), self.get_correo()]
 
+### FUNCIÓN STR DE LA CLASE ###
     def __str__(self):
         return f" - Nombre: {self.get_nombre()}\n - Apellido: {self.get_apellido()}\n - Email: {self.get_correo()}"
     
 
+### CLASE USUARIODB ###
 class UsuarioDB(Usuario):
     def __init__(self, id, nombre, apellido, correo, fecha_registro):
         super().__init__(nombre, apellido, correo)
@@ -49,7 +51,7 @@ class UsuarioDB(Usuario):
     def set_fecha_registro(self, value):
         self.__fecha_registro = value
 
-
+### FUNCIÓN STR DE LA CLASE ###
     def __str__(self):
         return  f" - ID: {self.get_id()}\n{super().__str__()}\n - Fecha Regristro: {self.get_fecha_registro()}"
     

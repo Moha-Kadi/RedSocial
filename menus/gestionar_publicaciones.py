@@ -15,21 +15,27 @@ def limpiar_terminal():
 def pausar_terminal():
     input("« Pulse Enter para continuar... »")
 
-def nueva_publicacion(datos): # INSERTAMOS NUEVA PUBLICACIÓN A LA BASE DE DATOS #
+# INSERTAMOS NUEVA PUBLICACIÓN A LA BASE DE DATOS #
+def nueva_publicacion(datos): 
     base_datos.ejecutar_consulta(settings.CREAR_PUBLICACION, [*datos])
 
-def listar_publicaciones(): # IMPRIMIMOS INFORMACIÓN DE LAS PUBLICACIONES #
+# IMPRIMIMOS INFORMACIÓN DE LAS PUBLICACIONES #
+def listar_publicaciones(): 
     publicaciones = base_datos.ejecutar_consulta(settings.OBTENER_TODAS_PUBLICACIONES)
     return [PublicacionDB(*pub) for pub in publicaciones]
-def listar_publicaciones_usuario(id_usuario): # LISTAMOS PUBLICACIONES DE UN USUARIO #
+
+ # LISTAMOS PUBLICACIONES DE UN USUARIO #
+def listar_publicaciones_usuario(id_usuario):
     publicacion_usuario = base_datos.ejecutar_consulta(settings.OBTENER_PUBLICACION_A_TRAVES_ID_USUARIO, [id_usuario]) 
     return [PublicacionDB(*pub) for pub in publicacion_usuario]
 
-def editar_publicacion(id_publicacion,nuevo_contenido): # EDITAMOS EL CONTENIDO DE UNA PUBLICACIÓN #
+# EDITAMOS EL CONTENIDO DE UNA PUBLICACIÓN #
+def editar_publicacion(id_publicacion,nuevo_contenido): 
     publicacion_editada = base_datos.ejecutar_consulta(settings.ACTUALIZAR_PUBLICACION, [nuevo_contenido,id_publicacion])
     return [PublicacionDB(*pub) for pub in publicacion_editada]
 
-def eliminar_publicacion(id): # ELIMINAMOS PUBLICACIÓN DE LA BASE DE DATOS #
+# ELIMINAMOS PUBLICACIÓN DE LA BASE DE DATOS #
+def eliminar_publicacion(id): 
     borrar_publicacion = base_datos.ejecutar_consulta(settings.BORRAR_PUBLICACION, id) 
     return [PublicacionDB(*pub) for pub in borrar_publicacion]
 

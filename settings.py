@@ -31,8 +31,8 @@ CREATE TABLE IF NOT EXISTS publicaciones (
 );
 """
 
+#   INSERCIÓN DE VALORES    
 INSERT_USUARIOS_SQL = "INSERT INTO usuarios (nombre, apellido, correo) VALUES (?, ?, ?)"
-
 INSERT_PUBLICACIONES_SQL = "INSERT INTO publicaciones (id_usuario, contenido) VALUES (?, ?)"
 
 ### DDBB - INSERTAR DATOS INICIALES ##
@@ -48,20 +48,6 @@ Insert_DatosIniciales_Publicaciones = [
 ]
 
 
-
-### INSERTAMOS DATOS INICIALES A LA BASE DE DATOS ###
-# if __name__ == "__main__":
-#     with base_datos.connect(DB) as conexion:
-#         cursor = conexion.cursor()
-#         try:
-#             cursor.executescript(CREATE_TABLES_SQL)
-          
-#             cursor.executemany(INSERT_USUARIOS_SQL, Insert_DatosIniciales_Usuarios)
-#             cursor.executemany(INSERT_PUBLICACIONES_SQL, Insert_DatosIniciales_Publicaciones)
-            
-#         finally:
-#             cursor.close()
-
 ### USUARIOS ###
 # AÑADIR USUARIO 
 CREAR_USUARIO = "INSERT INTO usuarios (nombre, apellido, correo) VALUES (?, ?, ?)"
@@ -75,7 +61,7 @@ ACTUALIZAR_CORREO = "UPDATE usuarios SET correo = ? WHERE id = ?"
 ELIMINAR_USUARIO = "DELETE FROM usuarios WHERE id = ?"
 
 
-    ### PUBLICACIONES ###
+### PUBLICACIONES ###
 #   CREAR PUBLICACION
 CREAR_PUBLICACION = "INSERT INTO publicaciones (id_usuario, contenido) VALUES (?,?)"
 #   OBTENER TODAS LAS PUBLICACIONES
@@ -88,7 +74,7 @@ ACTUALIZAR_PUBLICACION = "UPDATE publicaciones SET contenido = ? WHERE id = ?"
 BORRAR_PUBLICACION = "DELETE FROM publicaciones WHERE id = ?"
 
 
-    ### CONSULTAS ###
+### CONSULTAS ###
 #   USUARIOS REGISTROS DE HACE UN MES
 CONSULTA_REGISTRO_UTL_MES = """
     SELECT * FROM usuarios
